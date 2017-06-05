@@ -58,6 +58,8 @@ GOOD_MESSAGE = "Correct!";
 BAD_MESSAGE = "Incorrect!";
 CORRECT_QUESTION_COUNT = "#correct-counter";
 NEXT_BUTTON = "#next";
+RESULTS_HEADER = "#results-header";
+AMOUNT_CORRECT = "#amount-correct";
 
 
 function handleQuizApp() {
@@ -67,7 +69,16 @@ function handleQuizApp() {
 
     function renderResults() {
         console.log("renderResults ran");
-        $("js-results-page").fadeIn();
+        $(".js-results-page").delay(1800).fadeIn(1000);
+        $(AMOUNT_CORRECT).text(correctCount);
+        if (correctCount >= 0 && correctCount <= 2) {
+        	$(RESULTS_HEADER).text("Ouch...");
+        } else if (correctCount >= 3 && correctCount <= 5) {
+        	$(RESULTS_HEADER).text("Congrats!");
+        } else if (correctCount >= 6 && correctCount <= 7) {
+        	$(RESULTS_HEADER).text("Amazing!");
+        }
+
     }
 
     function handleNextClick() {
@@ -83,7 +94,8 @@ function handleQuizApp() {
                 });
                 if (questionNumber === 6) {
                     $(QUIZ_AREA).addClass("animated hinge");
-                    renderResults();
+                    $(ANSWER_OPTIONS).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', renderResults());
+                    
 
                 } else {
 

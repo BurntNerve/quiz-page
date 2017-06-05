@@ -4,7 +4,7 @@
 <head>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css?family=Chonburi|Neuton" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Yellowtail" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="index-styles.css">
     <title>Classic Rock Quiz</title>
 </head>
@@ -12,13 +12,13 @@
 <body>
     <div id="title-card" class="js-title-card">
         <h1>The Quiz:</h1>
-        <h2><span style="color:#425BFF; font-family: 'Mr De Haviland', cursive; font-size: 70px; margin-right: 30px; ">Classic Rock</span> Edition</h2>
-        <button class="js-title-button">Start</button>
+        <h2><span style="color:#10E7DC; font-family: 'Yellowtail', cursive; font-size: 70px; margin-right: 30px; ">Classic Rock</span> Edition</h2>
+        <button class="js-title-button">START</button>
     </div>
     <div class="quiz-area js-quiz-area">
         <div id="question-box" class="js-question-box">
             <h3 id="question-counter">1</h3>
-            <p id="question" class="js-question">Which band wrote the song "Black Dog" after a black labrador walked into the studio?</p>
+            <p id="question" class="js-question"></p>
         </div>
         <div class="answers js-answers">
             <form class="answers-form js-answers-form">
@@ -26,7 +26,7 @@
                 <input type="submit" name="answer-two" id="answer-two" class="js-answer-option">
                 <input type="submit" name="answer-three" id="answer-three" class="js-answer-option">
                 <input type="submit" name="answer-four" id="answer-four" class="js-answer-option">
-                <p>Correct: <span id="correct-counter js-correct-counter">0</span></p>
+                <p>Correct: <span id="correct-counter">0</span></p>
             </form>
             <input type="submit" name="next" id="next" value="Next">
         </div>

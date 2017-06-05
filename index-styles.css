@@ -4,7 +4,7 @@ html {
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-    font-family: 'Open Sans', sans-serif;
+    /*font-family: 'Open Sans', sans-serif;*/
 }
 
 body {
@@ -136,6 +136,11 @@ body {
 .wrong-answer {
 	background-color: red !important;
 	border: 2px solid red !important;
+}
+
+.results-page {
+	display: none;
+	z-index: 100000;
 }
 
 

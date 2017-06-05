@@ -27,26 +27,27 @@ ANSWERS = [
         { content: "a. Sting", correct: false },
         { content: "b. Axl Rose", correct: true },
         { content: "c. The Edge", correct: false },
-        { content: "d. Joe Strummer", correct: false}
+        { content: "d. Joe Strummer", correct: false }
     ],
-    [{ question: 'From what classic rock movie does the phrase "These go to 11" come from?'},
-    	{ content: "a. Wayne's World", correct: false},
-    	{ content: "b. A Hard Day's Night", correct: false},
-    	{ content: "c. Tenacious D in The Pick of Destiny", correct: false},
-    	{ content: "d. This is Spinal Tap", correct: true}
+    [{ question: 'From what classic rock movie does the phrase "These go to 11" come from?' },
+        { content: "a. Wayne's World", correct: false },
+        { content: "b. A Hard Day's Night", correct: false },
+        { content: "c. Tenacious D in The Pick of Destiny", correct: false },
+        { content: "d. This is Spinal Tap", correct: true }
     ],
-    [{ question: 'Which band has 22 songs in their discography with the word "rock" in the title?'},
-    	{ content: "a. AC/DC", correct: true},
-    	{ content: "b. The Who", correct: false},
-    	{ content: "c. The Doors", correct: false},
-    	{ content: "d. Heart", correct: false}
+    [{ question: 'Which band has 22 songs in their discography with the word "rock" in the title?' },
+        { content: "a. AC/DC", correct: true },
+        { content: "b. The Who", correct: false },
+        { content: "c. The Doors", correct: false },
+        { content: "d. Heart", correct: false }
     ]
 
-]
+];
 
 TITLE_CARD_ELEMENT = ".js-title-card";
 TITLE_BUTTON_ELEMENT = ".js-title-button";
-QUESTION_COUNTER = "#question-counter"
+QUIZ_AREA = ".js-quiz-area";
+QUESTION_COUNTER = "#question-counter";
 QUESTION = ".js-question";
 ANSWER_ONE = "#answer-one";
 ANSWER_TWO = "#answer-two";
@@ -55,8 +56,8 @@ ANSWER_FOUR = "#answer-four";
 ANSWER_OPTIONS = ".js-answer-option";
 GOOD_MESSAGE = "Correct!";
 BAD_MESSAGE = "Incorrect!";
-CORRECT_QUESTION_COUNT = "#correct-counter"
-NEXT_BUTTON = "#next"
+CORRECT_QUESTION_COUNT = "#correct-counter";
+NEXT_BUTTON = "#next";
 
 
 function handleQuizApp() {
@@ -64,21 +65,38 @@ function handleQuizApp() {
     var questionNumber = 0;
     var correctCount = 0;
 
+    function renderResults() {
+        console.log("renderResults ran");
+        $("js-results-page").fadeIn();
+    }
+
     function handleNextClick() {
         console.log("handleNextClick ran");
         $(NEXT_BUTTON).click(function(event) {
-            $(ANSWER_OPTIONS).removeClass("js-clicked");
-            $(ANSWER_OPTIONS).removeClass("correct");
-            $(ANSWER_OPTIONS).removeClass("correct-answer");
-            $(ANSWER_OPTIONS).removeClass("wrong-answer");
-            $(ANSWER_OPTIONS).css({ "background-color": "#1B9CE5", "border": "2px solid white" });
-            $(ANSWER_OPTIONS).hover(function() {
-                $(this).css({ "background-color": "#F79E02", "border": "2px solid #F79E02" });
-            }, function() {
-                $(this).css({ "background-color": "#1B9CE5", "border": "2px solid white" });
-            });
-            $(QUESTION_COUNTER).text(questionNumber + 1);
-            renderAnswers(questionNumber);
+            if ($(ANSWER_OPTIONS).hasClass("js-clicked")) {
+                $(ANSWER_OPTIONS).removeClass("js-clicked correct correct-answer wrong-answer animated shake tada");
+                $(ANSWER_OPTIONS).css({ "background-color": "#1B9CE5", "border": "2px solid white" });
+                $(ANSWER_OPTIONS).hover(function() {
+                    $(this).css({ "background-color": "#F79E02", "border": "2px solid #F79E02" });
+                }, function() {
+                    $(this).css({ "background-color": "#1B9CE5", "border": "2px solid white" });
+                });
+                if (questionNumber === 6) {
+                    $(QUIZ_AREA).addClass("animated hinge");
+                    renderResults();
+
+                } else {
+
+                    questionNumber++;
+                    $(QUESTION_COUNTER).text(questionNumber + 1);
+                    renderAnswers(questionNumber);
+                }
+            } else {
+                $(ANSWER_OPTIONS).addClass("animated pulse");
+                $(ANSWER_OPTIONS).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
+                    $(ANSWER_OPTIONS).removeClass("animated pulse");
+                });
+            }
 
         });
     }
@@ -88,17 +106,17 @@ function handleQuizApp() {
         $(".js-answer-option").click(function(event) {
             event.preventDefault();
             if ($(event.currentTarget).hasClass("correct") && (!$(event.currentTarget).hasClass("js-clicked"))) {
-                $(event.currentTarget).addClass("correct-answer");
+                $(event.currentTarget).addClass("correct-answer animated tada");
                 $(event.currentTarget).val(GOOD_MESSAGE);
                 $(ANSWER_OPTIONS).addClass("js-clicked");
                 correctCount++;
                 $(CORRECT_QUESTION_COUNT).text(correctCount);
-                questionNumber++;
             } else if (!$(event.currentTarget).hasClass("correct") && (!$(event.currentTarget).hasClass("js-clicked"))) {
-                $(event.currentTarget).addClass("wrong-answer");
+                $(event.currentTarget).addClass("wrong-answer animated shake");
+
                 $(event.currentTarget).val(BAD_MESSAGE);
                 $(ANSWER_OPTIONS).addClass("js-clicked");
-                questionNumber++;
+
             }
         });
     }
